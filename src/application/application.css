@@ -31,12 +31,6 @@
 	-fx-text-alignment: center;
 }
 
-#err2{
-	-fx-wrap-text: true;
-	
-}
-
-
 .scroll-pane .corner {
     -fx-background-color: #DCDCDC;
     -fx-background-insets: 0;

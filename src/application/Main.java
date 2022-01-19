@@ -146,6 +146,7 @@ public class Main extends Application {
 				try {
 					File errFile = new File(currentDirectory + "/stderr.txt");
 					BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(errFile),"UTF-8"));
+					
 					boolean flag = true;//エラー・警告があるかどうか
 					boolean detect = true;//検出できないエラー・警告があるかどうか
 					String message;
@@ -190,13 +191,16 @@ public class Main extends Application {
 						else if(message.contains("too few arguments to function")) {
 							flag = false;
 							String fun_name = (br.readLine()).trim();
-							fun_name = fun_name.substring(0, fun_name.indexOf(";"));
+							fun_name = fun_name.substring(0, fun_name.indexOf("("));
+							String argument_number = message.substring(message.lastIndexOf(",")-1, message.lastIndexOf(","));
+							
 							String[] strs = message.split(":");
 							int err_num = Integer.parseInt(strs[1]);
 
 							err.setText(err_num + "\n行目");
 							err.setId("err");
 							err2.setText(fun_name + "へ与える引数が足りない\n" +
+									fun_name + "へと与える引数は" + argument_number + "個であるべきです。\n"+
 									fun_name + "へと与える引数を今一度確認してください。\n");
 							pa.setStyle("-fx-border-color: black; ");
 							pa.getChildren().addAll(err,err2);
@@ -207,13 +211,16 @@ public class Main extends Application {
 						else if(message.contains("too many arguments to function")) {
 							flag = false;
 							String fun_name = (br.readLine()).trim();
-							fun_name = fun_name.substring(0, fun_name.indexOf(";"));
+							fun_name = fun_name.substring(0, fun_name.indexOf("("));
+							String argument_number = message.substring(message.lastIndexOf(",")-1, message.lastIndexOf(","));
+							
 							String[] strs = message.split(":");
 							int err_num = Integer.parseInt(strs[1]);
 
 							err.setText(err_num + "\n行目");
 							err.setId("err");
 							err2.setText(fun_name + "へ与える引数が多い\n" +
+									fun_name + "へと与える引数は" + argument_number + "個であるべきです。\n"+
 									fun_name + "へと与える引数を今一度確認してください。\n");
 							pa.setStyle("-fx-border-color: black; ");
 							pa.getChildren().addAll(err,err2);
@@ -239,7 +246,22 @@ public class Main extends Application {
 						else if(message.contains("invalid preprocessing directive")) {
 							flag = false;
 							String pre_dir = (br.readLine()).trim();
-							pre_dir = pre_dir.substring(0, pre_dir.indexOf("<"));//あとで調整
+							if(pre_dir.contains("<")) {
+								pre_dir = pre_dir.substring(0, pre_dir.indexOf("<"));
+							}
+							else if(pre_dir.contains("\"")) {
+								pre_dir = pre_dir.substring(0, pre_dir.indexOf("\""));
+							}
+							else if(pre_dir.contains("'")) {
+								pre_dir = pre_dir.substring(0, pre_dir.indexOf("'"));
+							}
+							else if(pre_dir.contains("(")) {
+								pre_dir = pre_dir.substring(0, pre_dir.indexOf("("));
+							}
+							else if(pre_dir.contains("{")) {
+								pre_dir = pre_dir.substring(0, pre_dir.indexOf("{"));
+							}
+							
 							String[] strs = message.split(":");
 							int err_num = Integer.parseInt(strs[1]);
 
@@ -256,18 +278,14 @@ public class Main extends Application {
 						}
 						else if(message.contains("redefinition of") || message.contains("redeclaration of")) {
 							flag = false;
-							String v_name = (br.readLine()).trim();//add
-							if(v_name.contains("=")) {
-								v_name = v_name.substring(v_name.indexOf(" ")+1, v_name.indexOf("="));
-							}else{
-								v_name = v_name.substring(v_name.indexOf(" ")+1, v_name.indexOf(";"));
-							}
 							String[] strs = message.split(":");
 							int err_num = Integer.parseInt(strs[1]);
-
+							
 							err.setText(err_num + "\n行目");
 							err.setId("err");
 							if(message.contains("with a different type:")) {
+								message = message.substring(0, message.indexOf("with a different type"));
+								String v_name = message.substring(message.indexOf("'")+1, message.lastIndexOf("'"));
 								err.setId("err");
 								err2.setText(v_name + "は異なるデータ型で複数定義\n"
 										+ "'[データ型] " + v_name + ";'が複数回書かれています。\n"
@@ -275,6 +293,7 @@ public class Main extends Application {
 										+ "どちらかの" + v_name + "を変更してください。\n");
 							}
 							else{
+								String v_name = message.substring(message.indexOf("'")+1, message.lastIndexOf("'"));
 								err2.setText(v_name + "が複数定義\n" +
 									"'[データ型] " + v_name + ";'が複数回書かれています。\n" +
 									"同じ名前の変数は一つのみ定義することができます。\n" +
@@ -290,13 +309,13 @@ public class Main extends Application {
 							flag = false;
 							int index1 = message.indexOf("'");
 							int index2 = message.indexOf("'",index1+1);
-							String any = message.substring(index1+1, index2);
+							String something = message.substring(index1+1, index2);
 							String[] strs = message.split(":");
 							int err_num = Integer.parseInt(strs[1]);
 
 							err.setText(err_num + "\n行目");
 							err.setId("err");
-							err2.setText(any + "に文法エラー\n" + any + "の直前に文法エラーが存在します。\n" +
+							err2.setText(something + "に文法エラー\n" + something + "の直前に文法エラーが存在します。\n" +
 									"『;』は抜けていませんか？『(』、『)』は多くありませんか？\n");
 							pa.setStyle("-fx-border-color: black; ");
 							pa.getChildren().addAll(err,err2);
@@ -306,15 +325,15 @@ public class Main extends Application {
 						}
 						else if(message.contains("expected ';'") || message.contains("expected '}'")) {
 							flag = false;
-							String any2 = (br.readLine()).trim();//add
+							String something2 = (br.readLine()).trim();//add
 							String[] strs = message.split(":");
 							int err_num = Integer.parseInt(strs[1]);
 
 							err.setText(err_num + "\n行目");
 							err.setId("err");
-							err2.setText(";または}が期待されている\n " + any2 + "の直後に文法エラーが存在します。\n" +
-						"『;』は抜けていませんか？"
-						+ "『{』、『}』は多かったり少なかったりしていませんか？\n");
+							err2.setText(";または}が期待されている\n " + something2 + "の直後に文法エラーが存在します。\n" +
+									"『;』は抜けていませんか？\n"
+									+ "『{』、『}』は多かったり少なかったりしていませんか？\n");
 							pa.setStyle("-fx-border-color: black; ");
 							pa.getChildren().addAll(err,err2);
 							error_message.add(err);
@@ -323,8 +342,12 @@ public class Main extends Application {
 						}
 						else if(message.contains("file not found")) {
 							flag = false;
-							String h_file = (br.readLine()).trim();//add
-							h_file = h_file.substring(h_file.indexOf("<")+1, h_file.indexOf(">"));
+							String h_file = (br.readLine()).trim();
+							if(h_file.contains("<")) {
+								h_file = h_file.substring(h_file.indexOf("<")+1, h_file.indexOf(">"));
+							}else if(h_file.contains("\"")){
+								h_file = h_file.substring(h_file.indexOf("\"")+1, h_file.lastIndexOf("\""));
+							}
 							String[] strs = message.split(":");
 							int err_num = Integer.parseInt(strs[1]);
 
@@ -341,14 +364,25 @@ public class Main extends Application {
 						else if(message.contains("expected \"FILENAME\" or <FILENAME>")) {
 							flag = false;
 							String h_file = (br.readLine()).trim();//add
-							h_file = h_file.substring(h_file.indexOf("(")+1, h_file.indexOf(")"));
+							
+							if(h_file.contains("'")) {
+								h_file = h_file.substring(h_file.indexOf("'")+1, h_file.lastIndexOf("'"));
+							}
+							else if(h_file.contains("(")) {
+								h_file = h_file.substring(h_file.indexOf("(")+1, h_file.indexOf(")"));
+							}
+							else if(h_file.contains("{")) {
+								h_file = h_file.substring(h_file.indexOf("{")+1, h_file.indexOf("}"));
+							}
+							
 							String[] strs = message.split(":");
 							int err_num = Integer.parseInt(strs[1]);
 
 							err.setText(err_num + "\n行目");
 							err.setId("err");
-							err2.setText("ヘッダーファイルの記述に不備\n\n"
-									+ "ヘッダーファイルは＜" + h_file + "＞または\" " + h_file + "\"と記述してください。\n");
+							err2.setText("ヘッダーファイルの記述に不備\n"
+									+ "ヘッダーファイルは＜" + h_file + "＞または\" " + h_file + "\"\n"
+											+ "と記述してください。\n");
 							pa.setStyle("-fx-border-color: black; ");
 							pa.getChildren().addAll(err,err2);
 							error_message.add(err);
@@ -492,7 +526,12 @@ public class Main extends Application {
 							        if(b[j].contains("[")) index_name = b[j];
 							      }
 							  }
-							index_name = index_name.substring(0, index_name.indexOf("["));
+							
+							if(index_name.contains("(")) {
+								index_name = index_name.substring(index_name.indexOf("(")+1, index_name.indexOf("["));
+							}else {
+								index_name = index_name.substring(0, index_name.indexOf("["));
+							}
 							index_name = index_name.replace("=", "");
 							index_name = index_name.replace(")", "");
 							index_name = index_name.replace("(", "");
@@ -533,8 +572,16 @@ public class Main extends Application {
 							warning_line_num.add(err_num);
 						}
 						else if(message.contains("generated.")) {
-							if(message.contains("warning")) warning_number = message.substring(0, message.indexOf("warning"));
-							if(message.contains("error")) err_number = message.substring(message.indexOf("error")-2, message.indexOf("error"));
+							if(message.contains("warning")&& message.contains("warning")) {
+								warning_number = message.substring(0, message.indexOf("warning"));
+								err_number = message.substring(message.indexOf("and")+3, message.indexOf("error"));
+							}
+							else if(message.contains("error")) {
+								err_number = message.substring(0, message.indexOf("error"));
+							}
+							else if(message.contains("warning")) {
+								err_number = message.substring(0, message.indexOf("warning"));
+							}
 
 								count.setText("警告: " + warning_number + "個	\tエラー: " + err_number + "個\n");
 								count.setPadding(new Insets(10, 10, 10, 10));//(top/right/bottom/left)
@@ -579,6 +626,7 @@ public class Main extends Application {
 						Code.setId("code_display");
 						Code.relocate(50 * tab, i * 20);
 						//Code.setY(i * 15);
+						
 						if(error_line_num.indexOf(i+1)!=-1) {
 								Code.setStyle("-fx-background-color: rgba(255,0,0,0.4);-fx-border-color: black;");
 						}
