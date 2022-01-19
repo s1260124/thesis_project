@@ -558,12 +558,12 @@ public class Main extends Application {
 							if(message.contains("whitespace")) {
 								err2.setText("全角文字が含まれている\n"
 									+"プログラムは原則として半角英数記号です。\n"
-									+ "スペース部分を確認し、半角に修正してみてください。\n");
+									+ "スペース部分を確認し、半角に修正してください。\n");
 							}
 							else if(message.contains("identifier character rather than as")) {
 								err2.setText("全角文字が含まれている\n"
 										+"プログラムは原則として半角英数記号です。\n"
-										+ "半角に修正してみてください。\n");
+										+ "半角に修正してください。\n");
 							}
 							pa.setStyle("-fx-border-color: black; ");
 							pa.getChildren().addAll(err,err2);
@@ -572,7 +572,7 @@ public class Main extends Application {
 							warning_line_num.add(err_num);
 						}
 						else if(message.contains("generated.")) {
-							if(message.contains("warning")&& message.contains("warning")) {
+							if(message.contains("warning")&& message.contains("error")) {
 								warning_number = message.substring(0, message.indexOf("warning"));
 								err_number = message.substring(message.indexOf("and")+3, message.indexOf("error"));
 							}
