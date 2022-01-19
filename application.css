@@ -1,0 +1,125 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+*{
+	-fx-background-color: transparent;    
+}
+.button{
+	-fx-font-size: 20px;
+	-fx-text-fill: white;
+	-fx-background-color: #696969;
+}
+.text-area{
+	-fx-font-size: 15px;
+	-fx-font-family: Monospaced;
+	-fx-border-color: rgba(71,126,181,0.5); 
+}
+#linenumber{
+	-fx-font-size: 17px;
+	-fx-font-family: Monospaced;
+	-fx-text-fill: white;
+	-fx-background-color: #778899;
+}
+#code_display{
+	-fx-font-size: 15px;
+	-fx-font-family: Monospaced;
+}
+#err{
+	-fx-background-color: rgba(255,0,0,0.5);
+	-fx-text-alignment: center;
+}
+#warning{
+	-fx-background-color: rgba(238,236,37,0.5);
+	-fx-text-alignment: center;
+}
+
+.scroll-pane .corner {
+    -fx-background-color: #DCDCDC;
+    -fx-background-insets: 0;
+}
+.scroll-bar {
+    -fx-background-color: #F1F1F1;
+    -fx-background-insets: 1;
+    -fx-padding: 0;
+}
+.scroll-bar .track {
+    -fx-background-color: #F1F1F1;
+}
+.scroll-bar .thumb {
+    -fx-background-color: #C1C1C1;
+    -fx-background-radius: 0;
+}
+.scroll-bar .thumb:hover {
+    -fx-background-color: #A8A8A8;
+}
+.scroll-bar .thumb:pressed {
+    -fx-background-color: #787878;
+}
+.scroll-bar:vertical .thumb {
+    -fx-background-insets: 0 1 0 1;
+}
+.scroll-bar:horizontal .thumb {
+    -fx-background-insets: 1 0 1 0;
+}
+.scroll-bar .decrement-arrow,
+.scroll-bar .increment-arrow {
+    -fx-padding: 0;
+    -fx-effect: null;
+    -fx-background-color: #808080;
+}
+.scroll-bar .decrement-button:hover,
+.scroll-bar .increment-button:hover {
+    -fx-background-color: #D2D2D2;
+}
+.scroll-bar .decrement-button:hover .decrement-arrow,
+.scroll-bar .increment-button:hover .increment-arrow {
+    -fx-background-color: #505050;
+}
+.scroll-bar .decrement-button:pressed,
+.scroll-bar .increment-button:pressed {
+    -fx-background-color: #787878;
+}
+.scroll-bar .decrement-button:pressed .decrement-arrow,
+.scroll-bar .increment-button:pressed .increment-arrow {
+    -fx-background-color: #FFFFFF;
+}
+.scroll-bar:vertical .decrement-button,
+.scroll-bar:vertical .increment-button {
+    -fx-padding: 5 3 5 3;
+}
+.scroll-bar:vertical .decrement-button {
+    -fx-background-insets: 1 0 0 0;
+}
+.scroll-bar:vertical .increment-button {
+    -fx-background-insets: 0 0 1 0;
+}
+.scroll-bar:horizontal .decrement-button,
+.scroll-bar:horizontal .increment-button {
+    -fx-padding: 3 5 3 5;
+}
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-insets: 0 0 0 1;
+}
+.scroll-bar:horizontal .increment-button {
+    -fx-background-insets: 0 1 0 0;
+}
+.scroll-bar:vertical .decrement-arrow,
+.scroll-bar:vertical .increment-arrow {
+    -fx-pref-width: 7;
+    -fx-pref-height: 4;
+}
+.scroll-bar:vertical .decrement-arrow {
+    -fx-shape: "M 50,0 L 0,25 L 100,25 z";
+}
+.scroll-bar:vertical .increment-arrow {
+    -fx-shape: "M 50,50 L 0,0 L 100,0 z";
+}
+.scroll-bar:horizontal .decrement-arrow,
+.scroll-bar:horizontal .increment-arrow {
+    -fx-pref-width: 4;
+    -fx-pref-height: 7;
+}
+.scroll-bar:horizontal .decrement-arrow {
+    -fx-shape: "M 0,50 L 50,0 L 50,100 z";
+}
+.scroll-bar:horizontal .increment-arrow {
+    -fx-shape: "M 50,50 L0,0 L0,100 z"
+}
