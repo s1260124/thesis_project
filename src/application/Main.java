@@ -32,10 +32,15 @@ public class Main extends Application {
 	public void start(Stage stage) {
 		stage.setTitle("C program compile error checker");
 		Group root = new Group();
+<<<<<<< HEAD
 		Scene scene = new Scene(root,1050,700);
 		stage.setScene(scene);
 		stage.setMinWidth(500);
         stage.setMinHeight(300);
+=======
+		Scene scene = new Scene(root,1050,800);
+		stage.setScene(scene);
+>>>>>>> e0e6648b0462e0bae5e2104fb3c78c4add2407e2
 		//stage.setMaximized(true);//全画面表示
 		scene.getStylesheets().add(this.getClass().getResource("application.css").toExternalForm());//CSSファイルを読み込む
 
@@ -43,6 +48,11 @@ public class Main extends Application {
 		borderPane.prefWidthProperty().bind(stage.widthProperty().multiply(1));
 		borderPane.prefHeightProperty().bind(stage.heightProperty().multiply(0.97));
 		root.getChildren().add(borderPane);
+<<<<<<< HEAD
+=======
+		
+		stage.show();
+>>>>>>> e0e6648b0462e0bae5e2104fb3c78c4add2407e2
 
 /*----------borderPane:TOP---------------*/
 /*コンパイルボタン配置*/
@@ -81,7 +91,11 @@ public class Main extends Application {
 		center.getChildren().addAll(LineNumber,compiledCode);
 
 		ScrollPane sp1 = new ScrollPane();
+<<<<<<< HEAD
 		sp1.prefHeightProperty().bind(stage.heightProperty().multiply(0.80));
+=======
+		sp1.prefHeightProperty().bind(stage.heightProperty().multiply(0.85));
+>>>>>>> e0e6648b0462e0bae5e2104fb3c78c4add2407e2
 		sp1.prefWidthProperty().bind(stage.widthProperty().multiply(0.3));
 		sp1.setContent(center);
 		sp1.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -95,12 +109,17 @@ public class Main extends Application {
 		
 		ScrollPane sp2 = new ScrollPane();
 		sp2.prefHeightProperty().bind(stage.heightProperty().multiply(0.85));
+<<<<<<< HEAD
 		sp2.prefWidthProperty().bind(stage.widthProperty().multiply(0.38));
+=======
+		sp2.prefWidthProperty().bind(stage.widthProperty().multiply(0.39));
+>>>>>>> e0e6648b0462e0bae5e2104fb3c78c4add2407e2
 		sp2.setContent(err_Label);
 		sp2.setHbarPolicy(ScrollBarPolicy.NEVER);
 		sp2.setPadding(new Insets(0, 10, 0, 10));//(top/right/bottom/left)
 
 		borderPane.setRight(sp2);
+<<<<<<< HEAD
 		//BorderPane.setAlignment(sp2, Pos.TOP_RIGHT);
 
 /*----------borderPane:BOTTOM---------------*/
@@ -112,6 +131,16 @@ public class Main extends Application {
 
 
 		stage.show();//ウィンドウを表示
+=======
+		BorderPane.setAlignment(sp2, Pos.TOP_RIGHT);
+
+/*----------borderPane:BOTTOM---------------*/
+/*エラーと警告の個数を表示（検出できないものも含む）*/
+		Pane kosuu = new Pane();
+		kosuu.setPadding(new Insets(10, 10, 10, 10));//(top/right/bottom/left)
+		borderPane.setBottom(kosuu);
+
+>>>>>>> e0e6648b0462e0bae5e2104fb3c78c4add2407e2
 /*--------------------------------------------------------------------------------*/
 		compileButton.setOnAction( e -> {
 			try {
@@ -178,6 +207,15 @@ public class Main extends Application {
 						err.setMaxHeight(stage.getHeight());
 
 						HBox pa = new HBox();
+<<<<<<< HEAD
+=======
+
+						Label count = new Label();
+						kosuu.getChildren().add(count);//エラーと警告の個数を表示
+						String warning_number = "0";//初期値…エラー０個、警告０個
+						String err_number = "0";
+
+>>>>>>> e0e6648b0462e0bae5e2104fb3c78c4add2407e2
 						if(message.contains("use of undeclared identifier") || message.contains("undeclared (first use in this function)")){
 							flag = false;
 							int index1 = message.indexOf("'");
@@ -492,8 +530,13 @@ public class Main extends Application {
 							err.setText(err_num + "\n行目");
 							err.setId("warning");
 							err2.setText("フォーマット文に引用されていない引数のデータがある\n"
+<<<<<<< HEAD
 									+ "%dなどのフォーマット指定子「%~」と対応していない引数が存在しています。\n"
 									+ "また、引数漏れがあります。フォーマット指定子の個数と引数の個数が同じになっているか確認してください。\n");
+=======
+									+ "printf文のフォーマット文の書式が間違っている可能性があります。\n"
+									+ "また、引数漏れがあります。\n");
+>>>>>>> e0e6648b0462e0bae5e2104fb3c78c4add2407e2
 							pa.setStyle("-fx-border-color: black; ");
 							pa.getChildren().addAll(err,err2);
 							error_message.add(err);
@@ -513,10 +556,16 @@ public class Main extends Application {
 
 							err.setText(err_num + "\n行目");
 							err.setId("warning");
+<<<<<<< HEAD
 							err2.setText("形式上で指定している型と引数の型が異なる\n"
 									+ "形式上での型が" + v_type1 + "であるのに対し、引数の型は" + v_type2 + "になっています。\n"
 									+ "例えば、scanf文ならば、scanf(\"%d\",&引数);で、この&が抜けている可能性があります。\n"
 									+ "一方で、printf文ならば、printf(\"%d\", 引数);で、&は必要ありません。\n");
+=======
+							err2.setText("形式上で指定している" + v_type + "と引数の型が異なる\n"
+									+ "scanf文の場合、scanf(“%d”,&引数);です。"
+									+ "この＆が抜けている可能性があります。\n");
+>>>>>>> e0e6648b0462e0bae5e2104fb3c78c4add2407e2
 							pa.setStyle("-fx-border-color: black; ");
 							pa.getChildren().addAll(err,err2);
 							error_message.add(err);
@@ -587,7 +636,11 @@ public class Main extends Application {
 							err_Label.getChildren().add(pa);
 							warning_line_num.add(err_num);
 						}
+<<<<<<< HEAD
 						else if(message.contains("generated.")) {//エラーと警告の総個数を取得
+=======
+						else if(message.contains("generated.")) {
+>>>>>>> e0e6648b0462e0bae5e2104fb3c78c4add2407e2
 							if(message.contains("warning")&& message.contains("error")) {
 								warning_number = message.substring(0, message.indexOf("warning"));
 								err_number = message.substring(message.indexOf("and")+3, message.indexOf("error"));
@@ -602,7 +655,11 @@ public class Main extends Application {
 								count.setText("\t警告: " + warning_number + "個	 エラー: " + err_number + "個\n");
 								count.setStyle("-fx-font-size: 17px;");
 						}
+<<<<<<< HEAD
 						else if(message.contains("error") || message.contains("warning") ) {//検出できていないエラーor警告があるかどうか
+=======
+						else if(message.contains("error") || message.contains("warning") ) {
+>>>>>>> e0e6648b0462e0bae5e2104fb3c78c4add2407e2
 							detect = false;
 						}
 
@@ -614,7 +671,10 @@ public class Main extends Application {
 								+ "近くのTAさんに質問しましょう。\n");
 						x.setStyle("-fx-border-color: black;");
 						err_Label.getChildren().add(x);
+<<<<<<< HEAD
 						
+=======
+>>>>>>> e0e6648b0462e0bae5e2104fb3c78c4add2407e2
 					}
 					//コンパイル成功XXXXXXXXXXXXXXXXX
 					else if(flag == true) {
@@ -625,6 +685,7 @@ public class Main extends Application {
 						err_Label.getChildren().add(success);
 					}
 					
+<<<<<<< HEAD
 					
 					/*GCCが返す元のメッセージを確認するために設定*/
 					original.setOnAction(e2-> {
@@ -656,6 +717,8 @@ public class Main extends Application {
 					      newStage.show(); // 新しいウインドウを表示
 					});
 					
+=======
+>>>>>>> e0e6648b0462e0bae5e2104fb3c78c4add2407e2
 					br.close();
 
 					int i = 0;
@@ -674,7 +737,11 @@ public class Main extends Application {
 						Code.relocate(50 * tab, i * 20);
 						//Code.setY(i * 15);
 						
+<<<<<<< HEAD
 						if(error_line_num.indexOf(i+1)!=-1) {//エラーがある行を色付け
+=======
+						if(error_line_num.indexOf(i+1)!=-1) {
+>>>>>>> e0e6648b0462e0bae5e2104fb3c78c4add2407e2
 								Code.setStyle("-fx-background-color: rgba(255,0,0,0.4);-fx-border-color: black;");
 						}
 						if(warning_line_num.indexOf(i+1)!=-1) {//警告がある行を色付け
