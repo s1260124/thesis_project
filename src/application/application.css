@@ -2,10 +2,22 @@
 *{
 	-fx-background-color: transparent;    
 }
-.button{
+#compilebutton:hover {
+    -fx-background-color: linear-gradient(#696969, #afb1b3);
+}
+#compilebutton{
 	-fx-font-size: 20px;
 	-fx-text-fill: white;
-	-fx-background-color: #696969;
+	-fx-background-color: linear-gradient(#373838,#696969);
+}
+#origin:hover {
+    -fx-background-color: linear-gradient(#696969, #afb1b3);
+}
+#origin{
+	-fx-font-size: 13px;
+	-fx-text-fill: white;
+	-fx-background-color: linear-gradient(#373838,#696969);
+	-fx-text-alignment: center;
 }
 .text-area{
 	-fx-font-size: 15px;
@@ -30,12 +42,6 @@
 	-fx-background-color: rgba(238,236,37,0.5);
 	-fx-text-alignment: center;
 }
-
-#err2{
-	-fx-wrap-text: true;
-	
-}
-
 
 .scroll-pane .corner {
     -fx-background-color: #DCDCDC;
