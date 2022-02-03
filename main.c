@@ -1,11 +1,7 @@
-#include<stdio.h>
-void A(int);
-int main(){
- int a,b;
- double a;
-
- A();
- printf("%d",a,b);
- 
- return 0;
-}
+#include"stdio.h"
+main( )
+{
+  printf("The introduction to C programming\n");
+  printf("The first exercise.\n");
+  return 0;
+} 

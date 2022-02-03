@@ -1,16 +1,4 @@
-main.c:5:9: error: redefinition of 'a' with a different type: 'double' vs 'int'
- double a;
-        ^
-main.c:4:6: note: previous definition is here
- int a,b;
-     ^
-main.c:7:4: error: too few arguments to function call, expected 1, have 0
- A();
- ~ ^
-main.c:2:1: note: 'A' declared here
-void A(int);
+main.c:2:1: warning: type specifier missing, defaults to 'int' [-Wimplicit-int]
+main( )
 ^
-main.c:8:16: warning: data argument not used by format string [-Wformat-extra-args]
- printf("%d",a,b);
-        ~~~~   ^
-1 warning and 2 errors generated.
+1 warning generated.

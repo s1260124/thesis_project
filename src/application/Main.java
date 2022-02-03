@@ -612,6 +612,24 @@ public class Main extends Application {
 							err_Label.getChildren().add(pa);
 							warning_line_num.add(err_num);
 						}
+						else if(message.contains("type specifier missing, defaults to 'int'")) {
+							flag = false;
+							String[] strs = message.split(":");
+							int err_num = Integer.parseInt(strs[1]);
+							
+							err.setText(err_num + "\n行目");
+							err.setId("warning");
+							err2.setText("型の指定がない\n"
+									+ "mainの定義は\n"
+									+ "int main(void)\n"
+									+ "または\n"
+									+ "int main(int argc, char *argv[])　にしましょう。\n");
+							pa.setStyle("-fx-border-color: black; ");
+							pa.getChildren().addAll(err,err2);
+							error_message.add(err);
+							err_Label.getChildren().add(pa);
+							warning_line_num.add(err_num);
+						}
 						else if(message.contains("generated.")) {//エラーと警告の総個数を取得
 							if(message.contains("warning")&& message.contains("error")) {
 								warning_number = message.substring(0, message.indexOf("warning"));
