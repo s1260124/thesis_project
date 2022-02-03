@@ -1,19 +1,16 @@
 main.c:5:9: error: redefinition of 'a' with a different type: 'double' vs 'int'
-        double a;
-               ^
-main.c:4:6: note: previous definition is here
-        int a;
-            ^
-main.c:8:16: warning: data argument not used by format string [-Wformat-extra-args]
-printf("%d", a,b);
-       ~~~~    ^
-main.c:9:11: warning: more '%' conversions than data arguments [-Wformat]
-scanf("%d%d", &a);
-         ~^
-main.c:10:15: error: subscripted value is not an array, pointer, or vector
-printf("%d", a[1][2]);
-             ~^~
-main.c:12:2: error: use of undeclared identifier 'retusrn'
-        retusrn 0;
+ double a;
         ^
-2 warnings and 3 errors generated.
+main.c:4:6: note: previous definition is here
+ int a,b;
+     ^
+main.c:7:4: error: too few arguments to function call, expected 1, have 0
+ A();
+ ~ ^
+main.c:2:1: note: 'A' declared here
+void A(int);
+^
+main.c:8:16: warning: data argument not used by format string [-Wformat-extra-args]
+ printf("%d",a,b);
+        ~~~~   ^
+1 warning and 2 errors generated.

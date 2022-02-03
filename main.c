@@ -1,13 +1,11 @@
- #include<stdio.h>
+#include<stdio.h>
 void A(int);
 int main(){
-	int a;
-	double a;
-	int b = 10;
+ int a,b;
+ double a;
 
-printf("%d", a,b);
-scanf("%d%d", &a);
-printf("%d", a[1][2]);
+ A();
+ printf("%d",a,b);
  
-	retusrn 0;
+ return 0;
 }
